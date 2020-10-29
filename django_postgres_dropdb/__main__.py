@@ -15,7 +15,8 @@ USAGE = 'python -m %s [alias]' % MODULE_NAME
 
 @click.command()
 @click.argument('alias',required=False)
-def _cli(alias=None):
+@click.argument('ignore_errors',required=False)
+def _cli(alias=None, ignore_errors=False):
     if not alias:
         alias = "default"
     django.setup()
@@ -28,7 +29,10 @@ def _cli(alias=None):
     if 'PORT' in db_settings:
         args+=["-p",str(db_settings['PORT'])]
     args.append(db_settings['NAME'])
-    subprocess.check_call(args)
+    if not ignore_errors:
+        subprocess.check_call(args)
+    else:
+        subprocess.call(args)
 
 
 if __name__ == '__main__':
