@@ -15,7 +15,6 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         super(Command, self).add_arguments(parser)
         parser.add_argument('alias',nargs='?', default="default")
-        parser.add_argument("ignore-errors", nargs="?", default="default")
         parser.add_argument("-i", "--ignore-errors", dest="ignore_errors", action="store_true", default=False)
 
     def handle(self, *args, **options):
